@@ -3,7 +3,7 @@ const lower = [..."abcdefghijklmnopqrstuvwxyz"];
 const numbers = [..."0123456789"];
 const symbols = [..."!@#$%^&*()-_=+[]{};:'\",.<>/?\\|`~"];
 
-let allChars = [...upper, ...lower, ...numbers, ...symbols];
+ let allChars = [...upper, ...lower, ...numbers, ...symbols];
 let password1 = document.getElementById("pass1");
 let password2 = document.getElementById("pass2");
 let generate = document.getElementById("generate");
@@ -15,10 +15,11 @@ function getRandomIndex() {
 }
 generate.addEventListener("click", () => {
 
+    let passLength = parseInt(document.querySelector('input[name="pass-len"]:checked').value);
     password1.textContent = "";
     password2.textContent = "";
-    
-    for(let i = 0; i < 15; i++) {
+  
+    for(let i = 0; i < passLength; i++) {
         password1.textContent += allChars[getRandomIndex()];
         password2.textContent += allChars[getRandomIndex()];
     }
