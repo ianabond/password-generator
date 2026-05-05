@@ -7,9 +7,8 @@ let allChars = [];
 let password1 = document.getElementById("pass1");
 let password2 = document.getElementById("pass2");
 let generate = document.getElementById("generate");
+let error = document.getElementById("error");
 
-// console.log(allChars);
-// console.log(allChars.length);
 function getRandomIndex() {
     let randomNum =  Math.floor(Math.random() * allChars.length);
     return randomNum;
@@ -21,17 +20,19 @@ generate.addEventListener("click", () => {
     let useLower = document.getElementById("lowercase").checked;
     let useNumbers = document.getElementById("numbers").checked;
     let useSymbols = document.getElementById("symbols").checked;
-    
+
+    if(!useLower && !useUpper && !useNumbers && !useSymbols) {
+        error.classList.remove("opacity-0");
+        return;
+    }
+    else {
+        error.classList.add("opacity-0");
+    }
+
     password1.textContent = "";
     password2.textContent = "";
     allChars = [];
 
-    if(!useLower && !useUpper && !useNumbers && !useSymbols) {
-        allChars.push(...upper);
-        allChars.push(...lower);
-        allChars.push(...numbers);
-        allChars.push(...symbols);
-    }
     if(useLower) {
         allChars.push(...lower);
     }
@@ -52,4 +53,30 @@ generate.addEventListener("click", () => {
 
     password1.classList.remove("opacity-0");
     password2.classList.remove("opacity-0");
+});
+
+password1.addEventListener("click", () => {
+    if (!password1.textContent) {
+        return;
+    }
+    navigator.clipboard.writeText(password1.textContent);
+    let currentPassword1 = password1.textContent;
+    password1.textContent = "Copied!";
+
+    setTimeout(() => {
+        password1.textContent = currentPassword1;
+    }, 1000);
+});
+
+password2.addEventListener("click", () => {
+    if (!password2.textContent) {
+        return;
+    }
+    navigator.clipboard.writeText(password2.textContent);
+    let currentPassword2 = password2.textContent;
+    password2.textContent = "Copied!";
+
+    setTimeout(() => {
+        password2.textContent = currentPassword2;
+    }, 1000);
 });
